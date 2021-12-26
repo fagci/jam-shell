@@ -8,18 +8,18 @@ Can be used to generate configs.
 
 ## Features
 
-Templates with variable expansion
+__Templates with variable expansion__
 
 ```twig
 <title>{ title }</title>
 ```
 
-Shell script variables, executions
+__Shell script variables, executions__
 ```bash
 Created at: $(date +'%Y-%m-%d')
 ```
 
-YAML-like frontmatter
+__YAML-like frontmatter__
 ```yaml
 ---
 date: 2021-12-27
@@ -28,7 +28,9 @@ generator: $0
 ---
 ```
 
-Frontmatter-like shell script
+_Note: text with spaces must be enclosed with double quotes_
+
+__Frontmatter-like shell script__
 ```bash
 ---
 date=2021-12-27
@@ -37,7 +39,9 @@ generator=$0
 ---
 ```
 
-Use custom templates
+_Note: text with spaces must be enclosed with double quotes_
+
+__Use custom templates__
 ```bash
 ---
 template='another-template.html'
