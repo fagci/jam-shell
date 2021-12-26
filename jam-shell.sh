@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+cd "$(dirname "${BASH_SOURCE[0]}")"
+
+[[ -f './config.sh' ]] && source './config.sh'
+
 TEMPLATES="${TEMPLATES:-tpl}"
 CONTENT="${CONTENT:-content}"
 OUTPUT="${OUTPUT:-public}"
@@ -11,7 +15,7 @@ mkdir -p "$OUTPUT"
 function normalize() {
     # Make an empty config or format existing config block
     awk 'NR==1 && /^---/ { has_config = 1; next }
-    has_config && /^\s*[a-zA-Z0-9_]+:/ { sub(": ", "=") }
+        has_config && /^\s*[a-zA-Z0-9_]+:/ { sub(": ", "=") }
         has_config && /^\s*[a-zA-Z0-9_]+=/ {printf "local "}
         has_config && /^---/ { has_config = 0; printf "@@@"; next}
         NR==1 && !has_config { printf "@@@" }
@@ -19,7 +23,7 @@ function normalize() {
 }
 
 function eval_text() {
-    eval echo '"'"$(sed 's_"_\\"_g' <<< "$1")"'"'
+    eval echo '"'"${1//\"/\\\"}"'"'
 }
 
 function render() {
@@ -42,6 +46,8 @@ function render() {
 }
 
 for content_file in "$CONTENT"/**/*; do
-    render "$content_file" > "${OUTPUT}/${content_file#*${CONTENT}}"
+    printf "${content_file}..."
+    render "$content_file" > "${OUTPUT}/${content_file#*${CONTENT}}" \
+        && echo 'OK' || echo 'FAIL'
 done
 

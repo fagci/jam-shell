@@ -1,0 +1,3 @@
+TEMPLATES="templates"
+CONTENT="posts"
+OUTPUT="public"
