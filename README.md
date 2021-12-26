@@ -8,7 +8,24 @@ Can be used to generate configs.
 
 ## Features
 
-- templates with variable expansion `{ variable }`
-- shell script variables, executions `Created at: $(date +'%Y-%m-%d')`
-- frontmatter-like extended to support shell script
-- use custom templates by `template='another-template.html'` in frontmatter
+Templates with variable expansion
+`{ variable }`
+
+Shell script variables, executions
+`Created at: $(date +'%Y-%m-%d')`
+
+Frontmatter-like shell script
+```bash
+---
+date=2021-12-27
+author=$(whoami)
+generator=$0
+---
+```
+
+Use custom templates
+```bash
+---
+template='another-template.html'
+---
+```
