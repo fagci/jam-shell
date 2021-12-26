@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-TEMPLATES='tpl'
-CONTENT='content'
-OUTPUT='public'
+TEMPLATES="${TEMPLATES:-tpl}"
+CONTENT="${CONTENT:-content}"
+OUTPUT="${OUTPUT:-public}"
 
 shopt -s globstar
 
@@ -11,14 +11,15 @@ mkdir -p "$OUTPUT"
 function normalize() {
     # Make an empty config or format existing config block
     awk 'NR==1 && /^---/ { has_config = 1; next }
-        NR!=1 && has_config && /^\s*[a-zA-Z0-9_]+=/ {printf "local "}
-        NR!=1 && has_config && /^---/ { has_config = 0; printf "@@@"; next}
+    has_config && /^\s*[a-zA-Z0-9_]+:/ { sub(": ", "=") }
+        has_config && /^\s*[a-zA-Z0-9_]+=/ {printf "local "}
+        has_config && /^---/ { has_config = 0; printf "@@@"; next}
         NR==1 && !has_config { printf "@@@" }
-        1' | sed 's_"_\\"_g' | sed -E 's/\{\s*(\S+)\s*\}/$\1/g'
+        1' | sed -E 's/\{\s*(\S+)\s*\}/$\1/g'
 }
 
 function eval_text() {
-    eval echo '"'"$1"'"'
+    eval echo '"'"$(sed 's_"_\\"_g' <<< "$1")"'"'
 }
 
 function render() {
