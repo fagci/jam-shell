@@ -9,10 +9,15 @@ Can be used to generate configs.
 ## Features
 
 Templates with variable expansion
-`{ variable }`
+
+```
+<title>{ title }</title>
+```
 
 Shell script variables, executions
-`Created at: $(date +'%Y-%m-%d')`
+```
+Created at: $(date +'%Y-%m-%d')
+```
 
 Frontmatter-like shell script
 ```bash
