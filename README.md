@@ -10,12 +10,12 @@ Can be used to generate configs.
 
 Templates with variable expansion
 
-```
+```twig
 <title>{ title }</title>
 ```
 
 Shell script variables, executions
-```
+```bash
 Created at: $(date +'%Y-%m-%d')
 ```
 
