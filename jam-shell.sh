@@ -16,7 +16,7 @@ function normalize() {
     # Make an empty config or format existing config block
     awk 'NR==1 && /^---/ { has_config = 1; next }
         has_config && /^\s*[a-zA-Z0-9_]+:/ { sub(": ", "=") }
-        has_config && /^\s*[a-zA-Z0-9_]+=/ {printf "local "}
+        has_config && /^\s*[a-zA-Z0-9_]+=/ { printf "local " }
         has_config && /^---/ { has_config = 0; printf "@@@"; next}
         NR==1 && !has_config { printf "@@@" }
         1' | sed -E 's/\{\s*(\S+)\s*\}/$\1/g'

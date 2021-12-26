@@ -19,6 +19,15 @@ Shell script variables, executions
 Created at: $(date +'%Y-%m-%d')
 ```
 
+YAML-like frontmatter
+```yaml
+---
+date: 2021-12-27
+author: $(whoami)
+generator: $0
+---
+```
+
 Frontmatter-like shell script
 ```bash
 ---
